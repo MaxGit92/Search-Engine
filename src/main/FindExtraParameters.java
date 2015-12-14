@@ -66,7 +66,7 @@ public class FindExtraParameters {
 		float[] bk1 = fepbm25.findExtraParameters();
 
 		// On enregistre les resultats dans un fichier étant donné le temps d'apprentissage
-		RandomAccessFile index1 = new RandomAccessFile("bestBM25", "rw");
+		RandomAccessFile index1 = new RandomAccessFile("best", "rw");
 		index1.writeBytes("lambda=" + lambda + " k1="+bk1[0]+" b="+bk1[1]);
 		index1.close();
 		

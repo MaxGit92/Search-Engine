@@ -2,15 +2,11 @@ package features;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import evaluation.Query;
-import indexation.Stemmer;
-import indexation.TextRepresenter;
 
 public class FeaturersList extends Featurer{
 	/*

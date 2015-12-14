@@ -4,7 +4,6 @@ import indexation.Index;
 
 import java.io.FileNotFoundException;
 import java.io.RandomAccessFile;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class Weighter {

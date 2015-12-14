@@ -5,12 +5,12 @@ import java.util.List;
 public abstract class EvalMeasure {
 	
 	/**
-	 * Calcul de la précision 
+	 * Calcul de la prï¿½cision 
 	 * @param nbDocDecouverts
 	 * @param i
 	 * @return
 	 */
-	protected double precision(int nbDocDecouverts, int i){
+	public double precision(int nbDocDecouverts, int i){
 		return (1.0*nbDocDecouverts)/i;
 	}
 	
@@ -20,14 +20,14 @@ public abstract class EvalMeasure {
 	 * @param nbDocRelIPremiers
 	 * @return
 	 */
-	protected double rappel(int nbDocRel, int nbDocRelIPremiers){
+	public double rappel(int nbDocRel, int nbDocRelIPremiers){
 		return (1.0*nbDocRelIPremiers)/nbDocRel;
 	}
 	
 	/**
-	 * Retournant le resultat de l'évaluation de la liste ordonnée de l'objet passé en paramètre
+	 * Retournant le resultat de l'ï¿½valuation de la liste ordonnï¿½e de l'objet passï¿½ en paramï¿½tre
 	 * @param I
 	 * @return
 	 */
-	protected abstract List<Double> eval(IRList I);
+	public abstract List<Double> eval(IRList I);
 }

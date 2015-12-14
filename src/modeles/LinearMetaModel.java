@@ -10,10 +10,8 @@ import java.util.Random;
 
 import evaluation.Query;
 import evaluation.QueryParser;
-import features.Featurer;
 import features.FeaturersList;
 import features.KeyDQ;
-import indexation.Document;
 import indexation.Index;
 
 public class LinearMetaModel extends MetaModel{

@@ -1,14 +1,10 @@
 package evaluation;
 
-import indexation.Document;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public abstract class QueryParser {
 	protected transient ArrayList<File> files;
@@ -70,6 +66,7 @@ public abstract class QueryParser {
 					}
 					break;
 				}
+				
 				if(ligne.startsWith(this.begin)){
 					if((this.end.length()==0) && read){
 						nbBytes=curOff-start;
@@ -100,7 +97,7 @@ public abstract class QueryParser {
 			}
 			if (ok){
 				String s=st.toString();
-				String from=files.get(curF).getAbsolutePath()+";"+start+";"+nbBytes;
+				//String from=files.get(curF).getAbsolutePath()+";"+start+";"+nbBytes;
 				rel.seek((long) 0);
 				query=getQuery(s);
 			}

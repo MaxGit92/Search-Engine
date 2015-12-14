@@ -23,7 +23,6 @@ public abstract class Featurer implements Serializable{
 	protected transient RandomAccessFile index;
 	protected Map<KeyDQ, List<Double>> features; // liste avec une liste à deux éléments [idDoc, idQuery] et une liste de scores
 	protected String nomFichier;
-	@SuppressWarnings("unchecked")
 	public Featurer(RandomAccessFile index, String nomFichier) throws ClassNotFoundException, IOException {
 		super();
 		this.index = index;

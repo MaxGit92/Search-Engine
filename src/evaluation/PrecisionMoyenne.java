@@ -19,9 +19,14 @@ public class PrecisionMoyenne extends EvalMeasure{
 				//res.add((1.0*totalPrecision)/I.getDocuments().size());
 			}
 		}
+		if(nbDocDecouverts==0){
+			res.add((double)0);
+			return res;
+		}
 		res.add((totalPrecision*1.0)/nbDocDecouverts);
 		return res;
 	}
+	
 
 	@Override
 	public String toString(){

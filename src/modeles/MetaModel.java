@@ -5,7 +5,6 @@ import java.io.RandomAccessFile;
 import java.util.HashMap;
 
 import evaluation.Query;
-import features.Featurer;
 import features.FeaturersList;
 
 public abstract class MetaModel extends IRmodelFeaturer{

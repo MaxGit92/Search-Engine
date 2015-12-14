@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import evaluation.Query;
-import modeles.IRmodel.ValueComparator;
 
 public abstract class IRmodelFeaturer {
 	protected RandomAccessFile index;

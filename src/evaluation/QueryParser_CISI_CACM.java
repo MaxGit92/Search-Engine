@@ -6,7 +6,6 @@ import java.util.Map;
 
 public class QueryParser_CISI_CACM extends QueryParser{
 	public QueryParser_CISI_CACM() {
-		// TODO Auto-generated constructor stub
 		super(".I");
 	}
 
@@ -91,7 +90,6 @@ public class QueryParser_CISI_CACM extends QueryParser{
 					}while(true);
 					break;
 				}
-				
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

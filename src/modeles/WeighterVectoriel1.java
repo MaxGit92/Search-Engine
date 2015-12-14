@@ -2,10 +2,7 @@ package modeles;
 
 import indexation.Index;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class WeighterVectoriel1 extends Weighter{

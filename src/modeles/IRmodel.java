@@ -1,20 +1,13 @@
 package modeles;
 
-import indexation.Index;
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.ExecutionException;
 
-import org.omg.CORBA.ValueBaseHolder;
 
 
 public abstract class IRmodel {

@@ -3,7 +3,6 @@ package modeles;
 import java.util.HashSet;
 import java.util.Map;
 
-import indexation.Index;
 
 public abstract class RandomWalk {
 	/**

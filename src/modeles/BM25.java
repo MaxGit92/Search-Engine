@@ -1,7 +1,6 @@
 package modeles;
 
 import indexation.Index;
-import indexation.Stemmer;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

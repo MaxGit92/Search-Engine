@@ -195,8 +195,8 @@ public class EvaluationRequeteVisualisation {
 		Hits hits = new Hits(nbIter);
 		int n = 30;
 		int k = 5;
-		ModeleRandomWalk modelePageRank = new ModeleRandomWalk(index, indexObjet, pageRank, languageModel, n, k); // On peut remplacer languageModele par un autre mod�le
-		ModeleRandomWalk modeleHits = new ModeleRandomWalk(index, indexObjet, hits, languageModel, n, k); // On peut remplacer bm25 par un autre mod�le
+		ModeleRandomWalk modelePageRank = new ModeleRandomWalk(index, indexObjet, pageRank, vectoriel3, n, k); // On peut remplacer languageModele par un autre mod�le
+		ModeleRandomWalk modeleHits = new ModeleRandomWalk(index, indexObjet, hits, vectoriel3, n, k); // On peut remplacer bm25 par un autre mod�le
 
 		FeaturersList featurersList = (FeaturersList) Featurer.chargerFeaturer("features_cisi.ser");
 		LinearMetaModel linearMetaModel = new LinearMetaModel(index,featurersList,queryParser,indexObjet);
@@ -204,30 +204,28 @@ public class EvaluationRequeteVisualisation {
 
 
 		EvaluationRequeteVisualisation eval1 = new EvaluationRequeteVisualisation();
-		//eval1.evaluationModele(vectoriel1, new QueryParser_CISI_CACM(), 1);
+		eval1.evaluationModele(vectoriel1, new QueryParser_CISI_CACM(), 1);
 		EvaluationRequeteVisualisation eval2 = new EvaluationRequeteVisualisation();
-		//eval2.evaluationModele(vectoriel2, new QueryParser_CISI_CACM(), 1);
+		eval2.evaluationModele(vectoriel2, new QueryParser_CISI_CACM(), 1);
 		EvaluationRequeteVisualisation eval3 = new EvaluationRequeteVisualisation();
-		//eval3.evaluationModele(vectoriel3, new QueryParser_CISI_CACM(), 1);
+		eval3.evaluationModele(vectoriel3, new QueryParser_CISI_CACM(), 1);
 		EvaluationRequeteVisualisation eval4 = new EvaluationRequeteVisualisation();
-		//eval4.evaluationModele(vectoriel4, new QueryParser_CISI_CACM(), 1);
+		eval4.evaluationModele(vectoriel4, new QueryParser_CISI_CACM(), 1);
 		EvaluationRequeteVisualisation eval5 = new EvaluationRequeteVisualisation();
-		//eval5.evaluationModele(vectoriel5, new QueryParser_CISI_CACM(), 1);
+		eval5.evaluationModele(vectoriel5, new QueryParser_CISI_CACM(), 1);
 		
 		EvaluationRequeteVisualisation evalLM = new EvaluationRequeteVisualisation();
-		//evalLM.evaluationModele(languageModel, new QueryParser_CISI_CACM(), 1);
+		evalLM.evaluationModele(languageModel, new QueryParser_CISI_CACM(), 1);
 		EvaluationRequeteVisualisation evalBM25 = new EvaluationRequeteVisualisation();
-		//evalBM25.evaluationModele(bm25, new QueryParser_CISI_CACM(), 1);
+		evalBM25.evaluationModele(bm25, new QueryParser_CISI_CACM(), 1);
 		
 		EvaluationRequeteVisualisation evalPR = new EvaluationRequeteVisualisation();
-		//evalPR.evaluationModele(modelePageRank, new QueryParser_CISI_CACM(), 1);
+		evalPR.evaluationModele(modelePageRank, new QueryParser_CISI_CACM(), 1);
 		EvaluationRequeteVisualisation evalHits = new EvaluationRequeteVisualisation();
-		//evalHits.evaluationModele(modeleHits, new QueryParser_CISI_CACM(), 1);
+		evalHits.evaluationModele(modeleHits, new QueryParser_CISI_CACM(), 1);
 		
 		EvaluationRequeteVisualisation evalLMM = new EvaluationRequeteVisualisation();
 		evalLMM.evaluationModele(linearMetaModel, new QueryParser_CISI_CACM(), 1);
-		
-		
 		
 		List<EvaluationRequeteVisualisation> evalsVect = new ArrayList<EvaluationRequeteVisualisation>();
 		evalsVect.add(eval1);

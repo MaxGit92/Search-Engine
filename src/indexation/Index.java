@@ -13,23 +13,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 public class Index implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
 	// Attributs
-	private TextRepresenter textRepresenter;
-	private Parser parser;
-	private String name;
+	protected TextRepresenter textRepresenter;
+	protected Parser parser;
+	protected String name;
 	
 	// Variables
-	private transient RandomAccessFile index;
-	private transient RandomAccessFile inverted;
-	private Map<Integer, Integer> docs; // cf docFrom
-	private Map<String, Long> stems = new HashMap<String, Long>(); // contient la position des stems pour faciliter l'acc�s � l'index invers�
-	private DocFrom docFrom = new DocFrom();
+	protected transient RandomAccessFile index;
+	protected transient RandomAccessFile inverted;
+	protected Map<Integer, Integer> docs; // cf docFrom
+	protected Map<String, Long> stems = new HashMap<String, Long>(); // contient la position des stems pour faciliter l'acc�s � l'index invers�
+	protected DocFrom docFrom = new DocFrom();
 
 	// Constructeur
 	public Index(String name, Parser parser, TextRepresenter textRepresenter){
@@ -141,7 +140,7 @@ public class Index implements Serializable{
 		
 	}
 	
-	@SuppressWarnings("resource")
+	
 	/**
 	 * Retourne une map avec en cl� les stems et en valeur le nombre d'apparition dans le document dont l'id est id.
 	 * @param id
@@ -172,7 +171,6 @@ public class Index implements Serializable{
 	 * @param nomInverted
 	 * @return HashMap<String,Double>
 	 */
-	@SuppressWarnings("resource")
 	public HashMap<String,Double> getTfsForStem(String stem, RandomAccessFile inverted){
 		HashMap<String,Double> res = new HashMap<String,Double>();
 		try {
