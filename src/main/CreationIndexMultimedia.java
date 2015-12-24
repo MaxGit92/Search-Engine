@@ -18,7 +18,7 @@ public class CreationIndexMultimedia {
 		// CRATION DES INDEX
 		// Definition des parametres
 		System.out.println("Indexation");
-		String easy235 = "easy235_text";
+		String easy235 = "easyCLEF08_text";
 		Parser p = new ParserCISI_CACM();
 		Stemmer s = new Stemmer();
 		// création des index
@@ -26,7 +26,7 @@ public class CreationIndexMultimedia {
 		// execution de l'indexation
 		indexEasy235.indexation();
 		// serialisation
-		indexEasy235.enregisterObjetIndex("easy235.ser");
+		indexEasy235.enregisterObjetIndex("easyCLEF08.ser");
 
 	}
 
