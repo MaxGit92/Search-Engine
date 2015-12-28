@@ -2,11 +2,14 @@ package main;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.ExecutionException;
 
+import diversite.ClusteringKMeans;
 import diversite.DissimilariteMoyenne;
 import diversite.Diversite;
 import diversite.MMR;
@@ -42,15 +45,11 @@ import net.sf.javaml.core.Dataset;
 
 public class TestMultimedia {
 
-	public static void main(String[] args) throws ClassNotFoundException, IOException, InterruptedException, ExecutionException {
+	public static void main(String[] args) throws Exception {
 		/*
 		 * PACKAGE evaluation
 		 */
 		System.out.println("crÃ©ation index");
-//		String indexName = "easy235_text_index";
-//		String invertedName = "easy235_text_inverted";
-//		String relevantName = "easy235_gt.txt";
-//		String queryName = "easy235_query.txt";
 		String indexName = "easyCLEF08_text_index";
 		String invertedName = "easyCLEF08_text_inverted";
 		String relevantName = "easyCLEF08_gt.txt";
@@ -58,7 +57,6 @@ public class TestMultimedia {
 		
 		RandomAccessFile index = new RandomAccessFile(indexName, "r");
 		RandomAccessFile inverted = new RandomAccessFile(invertedName, "r");
-//		Index indexObjet = IndexMultimedia.chargerObjetIndex("easy235.ser");
 		Index indexObjet = IndexMultimedia.chargerObjetIndex("easyCLEF08.ser");
 
 		
@@ -84,17 +82,21 @@ public class TestMultimedia {
 		System.out.println("creation query et queryStem");
 		QueryParser queryParser = new QueryParser_Multimedia();
 		queryParser.init(queryName, relevantName);
-		
 		TextRepresenter stemmer = new Stemmer();
-		Query query = queryParser.getQuery(5); // Attention ï¿½ ne pas mettre un numQuery au delas du nombre de query
+		Query query = queryParser.getQuery(5); // Attention a ne pas mettre un numQuery au delas du nombre de query
 		System.out.println(query.getClusters());		
-		
 		HashMap<String, Integer> queryStem = stemmer.getTextRepresentation(query.getText());
 
 		System.out.println("calcul ranking");
-		TreeMap<String, Double> resultatRequete = vectoriel1.getRanking(queryStem); // Utiliser un des modï¿½les crï¿½ï¿½s
-		//TreeMap<String, Double> resultatRequete = languageModel.getRanking(queryStem); // Utiliser un des modï¿½les crï¿½ï¿½s
-		System.out.println("ranking\n" +resultatRequete);
+		TreeMap<String, Double> resultatRequete = vectoriel1.getRanking(queryStem); // Utiliser un des modeles crees
+		//TreeMap<String, Double> resultatRequete = languageModel.getRanking(queryStem);
+		//System.out.println("ranking\n" +resultatRequete);
+		
+		System.out.println("Clustering");
+		ClusteringKMeans kMeans = new ClusteringKMeans(index, indexObjet, 8, 100);
+		Map<Integer, ArrayList<String>> clusters = kMeans.clustering(resultatRequete, 20);
+		System.out.println(clusters);
+		
 		
 		System.out.println("Calcul diversité");
 		Similarite similariteVectoriel = new SimilariteVectoriel(indexObjet, index, inverted, weighter1);

@@ -3,28 +3,29 @@ package main;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import diversite.ClusteringKMeans;
 import diversite.Similarite;
 import diversite.SimilariteLanguageModel;
 import diversite.SimilariteVectoriel;
+import evaluation.Query;
+import evaluation.QueryParser;
+import evaluation.QueryParser_Multimedia;
 import indexation.Index;
 import indexation.IndexMultimedia;
 import indexation.Stemmer;
 import indexation.TextRepresenter;
 import modeles.WeighterVectoriel1;
 import modeles.WeighterVectoriel5;
-import net.sf.javaml.clustering.KMeans;
-import net.sf.javaml.core.Dataset;
-import net.sf.javaml.core.DefaultDataset;
-import net.sf.javaml.core.DenseInstance;
-import net.sf.javaml.core.SparseInstance;
-import net.sf.javaml.tools.InstanceTools;
+import weka.clusterers.SimpleKMeans;
 import weka.core.Instance;
+import weka.core.Instances;
 
 public class test {
-	public static void main(String args[]) throws ClassNotFoundException, IOException{
+	public static void main(String args[]) throws Exception{
 		
 		System.out.println("création index");
 		String indexName = "easy235_text_index";
@@ -70,15 +71,55 @@ public class test {
 //		Dataset[] res = kmeans.cluster(dataset);
 //		System.out.println(res[0]);
 //		System.out.println(res[1]);
+//		
+//		System.out.println("Clustering");
+//		ClusteringKMeans kMeans = new ClusteringKMeans(index, indexObjet, 8, 50);
+//		Dataset[] clusters = kMeans.clustering();
+//		for(int i=0; i<clusters.length; i++){
+//			System.out.println(clusters[0]);
+//		}
 		
-		System.out.println("Clustering");
-		ClusteringKMeans kMeans = new ClusteringKMeans(index, indexObjet, 8, 50);
-		Dataset[] clusters = kMeans.clustering();
-		for(int i=0; i<clusters.length; i++){
-			System.out.println(clusters[0]);
-		}
 		
 		
+		
+		ClusteringKMeans kMeans = new ClusteringKMeans(index, indexObjet, 8, 100);
+		Map<Integer, ArrayList<String>> clusters = kMeans.clustering();
+		System.out.println(clusters);
+		
+		
+		/* POUR TESTER LE CLUSTERING (A REVOIR) */
+//		RandomAccessFile cl = new RandomAccessFile("easy235_gt.txt", "r");
+//
+//		
+//		Map<Integer, ArrayList<String>> clusters2 = new HashMap<Integer, ArrayList<String>>();
+//		String l="";
+//		while((l = cl.readLine())!=null){
+//			String[] split = l.split(" ");
+//			if(clusters2.containsKey(Integer.parseInt(split[3]))){
+//				clusters2.get(Integer.parseInt(split[3])).add(split[1]);
+//				continue;
+//			}
+//			clusters2.put(Integer.parseInt(split[3]), new ArrayList<String>());
+//			clusters2.get(Integer.parseInt(split[3])).add(split[1]);
+//		}
+//		cl.close();
+//		int cptCorr=0;
+//		int cptCorrMax=Integer.MIN_VALUE;
+//		ArrayList<Double> cptCorrList = new ArrayList<Double>();
+//		for(Integer i : clusters.keySet()){
+//			cptCorrMax=Integer.MIN_VALUE;
+//			for(Integer j : clusters2.keySet()){
+//				cptCorr=0;
+//				for(int k=0; k<clusters2.get(j).size(); k++){
+//					if(clusters.get(i).contains(clusters2.get(j).get(k)))
+//						cptCorr++;
+//					if(cptCorr>cptCorrMax) cptCorrMax=cptCorr;
+//				}
+//			}
+//			cptCorrList.add((double) cptCorrMax);
+//		}
+//		System.out.println(cptCorrList);
+//		
 		
 	}
 }

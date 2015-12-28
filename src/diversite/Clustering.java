@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import indexation.Index;
-import net.sf.javaml.core.Dataset;
-import net.sf.javaml.core.DefaultDataset;
-import net.sf.javaml.core.DenseInstance;
-import net.sf.javaml.core.SparseInstance;
+import weka.core.Attribute;
+import weka.core.FastVector;
+import weka.core.Instance;
+import weka.core.Instances;
 
 public abstract class Clustering {
 	private RandomAccessFile index;
@@ -29,10 +30,7 @@ public abstract class Clustering {
 		return sparseVector;
 	}
 	
-	public Dataset createDataset(){
-		// Création du dataset à retourner
-		Dataset dataset = new DefaultDataset();
-		
+	public Instances createDataset(){
 		// Récupération de tous les mots du corpus (sous forme de tableau)
 		Set<String> stemSet = indexObjet.getStems().keySet();
 		String[] stems = stemSet.toArray(new String[stemSet.size()]);
@@ -41,14 +39,60 @@ public abstract class Clustering {
 		for(int i=0; i<stems.length; i++){
 			posOfStemInVector.put(stems[i], i);
 		}
+		// Creation du fastVector
+		FastVector fv = new FastVector(); 
+		for(int i=0; i<posOfStemInVector.size() ;i++){ 
+		        fv.addElement(new Attribute("stem" + i)); 
+		}
 		
+		// Creation de l'instance à retourner
+		Instances data = new Instances("kmeans", fv, 0);
+
 		for(String id : indexObjet.getDocFrom().getId()){
 			HashMap<String, Double> tfsForDoc = indexObjet.getTfsForDoc(id, index);
-			SparseInstance instance = new SparseInstance(createSparseVector(tfsForDoc, posOfStemInVector));
-			dataset.add(instance);
+			double[] sparseVector = createSparseVector(tfsForDoc, posOfStemInVector);
+			Instance tmp = new Instance(Double.parseDouble(id), sparseVector);
+			data.add(tmp);
 		}
-		return dataset;
+		return data;
 	}
 	
-	public abstract Dataset[] clustering();
+	public Instances createDataset(TreeMap<String, Double> ranking, int N){
+		// Récupération de tous les mots du corpus (sous forme de tableau)
+		Set<String> stemSet = indexObjet.getStems().keySet();
+		String[] stems = stemSet.toArray(new String[stemSet.size()]);
+		// Création d'une hashmap pour placer le stem dans le sparse vector facilement
+		Map<String, Integer> posOfStemInVector = new HashMap<String, Integer>();
+		for(int i=0; i<stems.length; i++){
+			posOfStemInVector.put(stems[i], i);
+		}
+		// Creation du fastVector
+		FastVector fv = new FastVector(); 
+		for(int i=0; i<posOfStemInVector.size() ;i++){ 
+		        fv.addElement(new Attribute("stem" + i)); 
+		}
+		
+		// Creation de l'instance à retourner
+		Instances data = new Instances("kmeans", fv, 0);
+
+		// Récupération des ids des relevant (ordonnés)
+		Map<String, Double> mapRanking = new HashMap<String, Double>();
+		mapRanking.putAll(ranking);
+		Set<String> ids = ranking.keySet();
+		
+		int cpt=0;
+		for(String id : indexObjet.getDocFrom().getId()){
+			if(ids.contains(id)) continue;
+			if(cpt==N) break;
+			HashMap<String, Double> tfsForDoc = indexObjet.getTfsForDoc(id, index);
+			double[] sparseVector = createSparseVector(tfsForDoc, posOfStemInVector);
+			Instance tmp = new Instance(Double.parseDouble(id), sparseVector);
+			data.add(tmp);
+			cpt++;
+		}
+		return data;
+	}
+		
+	public abstract Map<Integer, ArrayList<String>> clustering() throws Exception;
+	public abstract Map<Integer, ArrayList<String>> clustering(TreeMap<String, Double> ranking, int N) throws Exception;
 }
