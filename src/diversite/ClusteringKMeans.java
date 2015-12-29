@@ -36,7 +36,7 @@ public class ClusteringKMeans extends Clustering{
 
 
 	@Override
-	public Map<Integer, ArrayList<String>> clustering() throws Exception{
+	public Map<String, Integer> clustering() throws Exception{
 		// Creation du classifieur
 		SimpleKMeans kMeans = new SimpleKMeans();
 		kMeans.setMaxIterations(nbIter);
@@ -47,7 +47,7 @@ public class ClusteringKMeans extends Clustering{
 		Instances ds = createDataset();
 		// On clusterise
 		kMeans.buildClusterer(ds);
-		
+		/*
 		Map<Integer, ArrayList<String>> clusters = new HashMap<Integer, ArrayList<String>>();
 		
 		for (int i = 0; i < ds.numInstances(); i++) {
@@ -58,12 +58,19 @@ public class ClusteringKMeans extends Clustering{
 				clusters.put(idCluster, list);
 			}
 			clusters.get(kMeans.clusterInstance(ds.instance(i))).add(idDoc);
+		}*/
+		
+		Map<String, Integer> clusters = new HashMap<String, Integer>();
+		for (int i = 0; i < ds.numInstances(); i++) {
+			String idDoc = String.valueOf((int)ds.instance(i).weight());
+			int idCluster = kMeans.clusterInstance(ds.instance(i));
+			clusters.put(idDoc, idCluster);
 		}
 		
 		return clusters;
 	}
 	
-	public Map<Integer, ArrayList<String>> clustering(TreeMap<String, Double> ranking, int N) throws Exception {
+	public Map<String, Integer> clustering(TreeMap<String, Double> ranking, int N) throws Exception {
 		// Creation du classifieur
 		SimpleKMeans kMeans = new SimpleKMeans();
 		kMeans.setMaxIterations(nbIter);
@@ -75,18 +82,14 @@ public class ClusteringKMeans extends Clustering{
 		// On clusterise
 		kMeans.buildClusterer(ds);
 
-		Map<Integer, ArrayList<String>> clusters = new HashMap<Integer, ArrayList<String>>();
 
+		Map<String, Integer> clusters = new HashMap<String, Integer>();
 		for (int i = 0; i < ds.numInstances(); i++) {
 			String idDoc = String.valueOf((int)ds.instance(i).weight());
 			int idCluster = kMeans.clusterInstance(ds.instance(i));
-			if (!clusters.containsKey(idCluster)) {
-				ArrayList<String> list = new ArrayList<String>();
-				clusters.put(idCluster, list);
-			}
-			clusters.get(kMeans.clusterInstance(ds.instance(i))).add(idDoc);
+			clusters.put(idDoc, idCluster);
 		}
-
+		
 		return clusters;
 	}
 

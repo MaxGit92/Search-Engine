@@ -81,8 +81,7 @@ public abstract class Clustering {
 		Set<String> ids = ranking.keySet();
 		
 		int cpt=0;
-		for(String id : indexObjet.getDocFrom().getId()){
-			if(ids.contains(id)) continue;
+		for(String id : ids){
 			if(cpt==N) break;
 			HashMap<String, Double> tfsForDoc = indexObjet.getTfsForDoc(id, index);
 			double[] sparseVector = createSparseVector(tfsForDoc, posOfStemInVector);
@@ -93,6 +92,6 @@ public abstract class Clustering {
 		return data;
 	}
 		
-	public abstract Map<Integer, ArrayList<String>> clustering() throws Exception;
-	public abstract Map<Integer, ArrayList<String>> clustering(TreeMap<String, Double> ranking, int N) throws Exception;
+	public abstract Map<String, Integer> clustering() throws Exception;
+	public abstract Map<String, Integer> clustering(TreeMap<String, Double> ranking, int N) throws Exception;
 }

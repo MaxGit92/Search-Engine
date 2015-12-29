@@ -3,15 +3,18 @@ package evaluation;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class ClusterRecall extends EvalMeasure{
 	private int nbSousThemes;
 	private int n;
+	private Map<String, Integer> clusters;
 	
-	public ClusterRecall(int nbSousThemes, int n){
+	public ClusterRecall(int nbSousThemes, int n, Map<String, Integer> clusters){
 		this.nbSousThemes = nbSousThemes;
 		this.n = n;
+		this.clusters = clusters;
 	}
 	
 	/**
@@ -20,19 +23,18 @@ public class ClusterRecall extends EvalMeasure{
 	 * @param n
 	 * @return
 	 */
-	// A MODIFIER NE PEUX PAS ENCORE ETRE IMPLEMENTE (10/12)
 	public double clusterRecall(IRList I, int nbSousThemes, int n){
 		int i = 0; // Compte le nombre de documents
-		Set<String> clusters = new HashSet<String>();
+		Set<Integer> clusters = new HashSet<Integer>();
 		int nbSousThemesTrouves=0;
-		for(String docS: I.getDocuments().keySet()){
-			if(!clusters.contains(I.getQuery().getClusters().get(docS))){
+		for(String docS: this.clusters.keySet()){
+			if(!clusters.contains(this.clusters.get(docS))){
 				nbSousThemesTrouves++;
-				clusters.add(I.getQuery().getClusters().get(docS));
+				clusters.add(this.clusters.get(docS));
 			}
-			i++;
-			if(i==n) break;
+			if(++i==n) break;
 		}
+		System.out.println(nbSousThemes);
 		return nbSousThemesTrouves*1.0/nbSousThemes;
 	}
 	

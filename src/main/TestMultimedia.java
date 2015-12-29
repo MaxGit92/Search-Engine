@@ -93,8 +93,10 @@ public class TestMultimedia {
 		//System.out.println("ranking\n" +resultatRequete);
 		
 		System.out.println("Clustering");
-		ClusteringKMeans kMeans = new ClusteringKMeans(index, indexObjet, 8, 100);
-		Map<Integer, ArrayList<String>> clusters = kMeans.clustering(resultatRequete, 20);
+		int nbClusters=5;
+		int nbIter=200;
+		ClusteringKMeans kMeans = new ClusteringKMeans(index, indexObjet, nbClusters, nbIter);
+		Map<String, Integer> clusters = kMeans.clustering();
 		System.out.println(clusters);
 		
 		
@@ -114,10 +116,12 @@ public class TestMultimedia {
 		System.out.println("creation measure");
 		IRList irList = new IRList(query, resultatRequete);
 		IRList irListDiv = new IRList(query, resultatRequeteDiversite);
+		System.out.println(resultatRequete);
+		System.out.println(resultatRequeteDiversite);
 		PrecisionRappel precisionRappel = new PrecisionRappel(20);
 		PrecisionMoyenne precisionMoyenne = new PrecisionMoyenne();
 		PrecisionAtN precisionAtn = new PrecisionAtN(20);
-		ClusterRecall clusterRecall = new ClusterRecall(8, 20);
+		ClusterRecall clusterRecall = new ClusterRecall(nbClusters, 20, clusters);
 		
 		System.out.println("evaluation modele");
 		//List<Double> resPM = precisionMoyenne.eval(irList);
