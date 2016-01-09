@@ -14,12 +14,14 @@ import weka.core.Instance;
 import weka.core.Instances;
 
 public abstract class Clustering {
-	private RandomAccessFile index;
-	private Index indexObjet;
+	protected RandomAccessFile index;
+	protected Index indexObjet;
+	protected int nbCluster;
 	
-	public Clustering(RandomAccessFile index, Index indexObjet){
+	public Clustering(RandomAccessFile index, Index indexObjet, int nbCluster){
 		this.index = index;
 		this.indexObjet = indexObjet;
+		this.nbCluster = nbCluster;
 	}
 	
 	public double[] createSparseVector(HashMap<String, Double> tfsForDoc, Map<String, Integer> posOfStemInVector){
@@ -90,6 +92,11 @@ public abstract class Clustering {
 			cpt++;
 		}
 		return data;
+	}
+	
+
+	public int getNbCluster() {
+		return nbCluster;
 	}
 		
 	public abstract Map<String, Integer> clustering() throws Exception;

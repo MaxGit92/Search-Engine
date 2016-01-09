@@ -11,10 +11,9 @@ public class ClusterRecall extends EvalMeasure{
 	private int n;
 	private Map<String, Integer> clusters;
 	
-	public ClusterRecall(int nbSousThemes, int n, Map<String, Integer> clusters){
+	public ClusterRecall(int nbSousThemes, int n){
 		this.nbSousThemes = nbSousThemes;
 		this.n = n;
-		this.clusters = clusters;
 	}
 	
 	/**
@@ -25,16 +24,15 @@ public class ClusterRecall extends EvalMeasure{
 	 */
 	public double clusterRecall(IRList I, int nbSousThemes, int n){
 		int i = 0; // Compte le nombre de documents
-		Set<Integer> clusters = new HashSet<Integer>();
+		Set<String> clusters = new HashSet<String>();
 		int nbSousThemesTrouves=0;
-		for(String docS: this.clusters.keySet()){
-			if(!clusters.contains(this.clusters.get(docS))){
+		for(String docS: I.getDocuments().keySet()){
+			if(!clusters.contains(I.getQuery().getClusters().get(docS)) && I.getQuery().getRelevants().keySet().contains(docS)){
 				nbSousThemesTrouves++;
-				clusters.add(this.clusters.get(docS));
+				clusters.add(I.getQuery().getClusters().get(docS));
 			}
 			if(++i==n) break;
 		}
-		System.out.println(nbSousThemes);
 		return nbSousThemesTrouves*1.0/nbSousThemes;
 	}
 	

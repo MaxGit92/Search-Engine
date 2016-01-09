@@ -38,10 +38,8 @@ public abstract class QueryParser {
 	public Query getQuery(int numQuery) throws IOException{
 		br.seek(0);
 		Query q = null;
-		int cpt = 1;
 		while((q=nextQuery())!=null){
-			if(cpt==numQuery) return q;
-			cpt++;
+			if(Integer.parseInt(q.getId())==numQuery) return q;
 		}
 		return q;
 	}

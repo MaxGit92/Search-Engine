@@ -9,7 +9,7 @@ import java.util.TreeMap;
 import evaluation.Query;
 import modeles.ValueComparator;
 
-public class MMR extends Diversite{
+public class MMR extends DiversiteGlouton{
 
 	private float alpha;
 	public MMR(Similarite similarite, float alpha) {
@@ -40,7 +40,7 @@ public class MMR extends Diversite{
 		}
 		ValueComparator comparateur = new ValueComparator(newRanking);
 		TreeMap<String,Double> resRanking = new TreeMap<String,Double>(comparateur);
-		resRanking.putAll(ranking);
+		resRanking.putAll(newRanking);
 		return resRanking;
 	}
 
@@ -59,12 +59,12 @@ public class MMR extends Diversite{
 				newRanking.put(idDocsRanking[i], Double.MAX_VALUE);
 				continue;
 			}
-			Double newScore = newRanking.get(idDocsRanking[i]) - (1-alpha)*similarite.similariteMax(idDocsRanking, i);
+			Double newScore = alpha*newRanking.get(idDocsRanking[i]) - (1-alpha)*similarite.similariteMax(idDocsRanking, i);
 			newRanking.put(idDocsRanking[i], newScore);
 		}
 		ValueComparator comparateur = new ValueComparator(newRanking);
 		TreeMap<String,Double> resRanking = new TreeMap<String,Double>(comparateur);
-		resRanking.putAll(ranking);
+		resRanking.putAll(newRanking);
 		return resRanking;
 	}
 	

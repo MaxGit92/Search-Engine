@@ -8,7 +8,7 @@ import java.util.TreeMap;
 
 import modeles.ValueComparator;
 
-public class ProgDin extends Diversite{
+public class ProgDin extends DiversiteGlouton{
 
 	private float alpha;
 	private double[][] backpoint;

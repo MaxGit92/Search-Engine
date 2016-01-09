@@ -15,22 +15,20 @@ import weka.core.Instances;
 
 public class ClusteringKMeans extends Clustering{
 
-	private int nbCluster, nbIter;
+	private int nbIter;
 	
 	public ClusteringKMeans(RandomAccessFile index, Index indexObjet) {
-		super(index, indexObjet);
-		this.nbCluster = 5;
+		super(index, indexObjet, 5);
 		this.nbIter = 100;
 	}
 
 	public ClusteringKMeans(RandomAccessFile index, Index indexObjet, int nbCluster) {
-		super(index, indexObjet);
-		this.nbCluster = nbCluster;
+		super(index, indexObjet, nbCluster);
+		this.nbIter = 100;
 	}
 	
 	public ClusteringKMeans(RandomAccessFile index, Index indexObjet, int nbCluster, int nbIter) {
-		super(index, indexObjet);
-		this.nbCluster = nbCluster;
+		super(index, indexObjet, nbCluster);
 		this.nbIter = nbIter;
 	}
 
@@ -89,8 +87,9 @@ public class ClusteringKMeans extends Clustering{
 			int idCluster = kMeans.clusterInstance(ds.instance(i));
 			clusters.put(idDoc, idCluster);
 		}
-		
 		return clusters;
 	}
 
+	
+	
 }

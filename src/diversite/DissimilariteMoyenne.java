@@ -8,7 +8,7 @@ import java.util.TreeMap;
 
 import modeles.ValueComparator;
 
-public class DissimilariteMoyenne extends Diversite{
+public class DissimilariteMoyenne extends DiversiteGlouton{
 
 	private float alpha;
 	public DissimilariteMoyenne(Similarite similarite, float alpha) {
@@ -34,12 +34,12 @@ public class DissimilariteMoyenne extends Diversite{
 				newRanking.put(idDocsRanking[i], Double.MIN_VALUE);
 				continue;
 			}
-			Double newScore = newRanking.get(idDocsRanking[i]) - (1-alpha)*(1/(i))*similarite.similariteSum(idDocsRanking, i);
+			Double newScore = alpha*newRanking.get(idDocsRanking[i]) - (1-alpha)*(1/(i))*similarite.similariteSum(idDocsRanking, i);
 			newRanking.put(idDocsRanking[i], newScore);
 		}
 		ValueComparator comparateur = new ValueComparator(newRanking);
 		TreeMap<String,Double> resRanking = new TreeMap<String,Double>(comparateur);
-		resRanking.putAll(ranking);
+		resRanking.putAll(newRanking);
 		return resRanking;
 	}
 
@@ -63,7 +63,7 @@ public class DissimilariteMoyenne extends Diversite{
 		}
 		ValueComparator comparateur = new ValueComparator(newRanking);
 		TreeMap<String,Double> resRanking = new TreeMap<String,Double>(comparateur);
-		resRanking.putAll(ranking);
+		resRanking.putAll(newRanking);
 		return resRanking;
 	}
 

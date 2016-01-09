@@ -83,7 +83,7 @@ public class test {
 		
 		
 		ClusteringKMeans kMeans = new ClusteringKMeans(index, indexObjet, 8, 100);
-		Map<Integer, ArrayList<String>> clusters = kMeans.clustering();
+		Map<String, Integer> clusters = kMeans.clustering();
 		System.out.println(clusters);
 		
 		
